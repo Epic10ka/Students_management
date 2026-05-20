@@ -22,14 +22,18 @@ def timer(x):
 language = {
     'ptbr': {
         'returning': '\033[1;97mRETORNANDO AO MENU'.center(45),
+        # MENUS
+        'access_menu': 'ACESSAR MENU         |',
         'main_menu': 'REGISTRO DE ALUNOS       /',      #TÍTULO DO MENU
         'back': '\033[1;97mRETORNANDO AO MENU',    #MENSSAGEM DE RETORNO
         'add': '\033[1;97mADICIONAR ALUNOS   /',      #TÍTULO DE ADICIONAR ALUNO
             'sub_add': '    \033[1;97mADICIONAR ALUNO           |',  #SUB TÍTULO DE ADICIONAR ALUNO
             'grade': 'Nota: ',
         'edit': '\033[1;97mEDITAR ALUNOS    /',     #TÍTULO DE EDITAR ALUNO
+            'sub_edit': '\033[1;97mEDITAR ALUNO            |',
         'remove_student': '\033[1;91mREMOVER\033[1;97m ALUNO            |'.center(35),    #TÍTULO DE REMOVER ALUNO
-            'select_student': ' | SELECIONE UM ESTUDANTE | ',
+            'select_student': ' | SELECIONE UM ESTUDANTE | ', #SELECIONAR ALUNO
+            'selected': '        \033[1;94mALUNO SELECIONADO\033[m\033[1;97m:', #SELECTED
         'remove_again': 'Deseja remover outro aluno?: ', #PERGUNTA (REMOVER)
         'list': 'LISTAR ALUNOS  /',        #TITULO DE LISTAR ALUNOS
         'exit': '\033[1;91mSAIR\033[1;97m     /',      #TÍTULO DE SAIR
@@ -40,20 +44,23 @@ language = {
         'no_student': 'NENHUM ALUNO REGISTRADO', #SEM REGISTRO DE ALUNO
         #invalidos
         'invalid_num': 'Digite um número válido', #Numero válido
-        'invalid_opt': 'OPÇÃO INVÁLIDA' #Opção válida
-
+        'invalid_opt': 'OPÇÃO INVÁLIDA', #Opção válida
     },
 
     'en': {
         'returning': '\033[1;97mRETURNING TO MAIN MENU'.center(48),
+        #MENUS
+        'access_menu': 'ACCESS MENU        |',
         'main_menu': r'STUDENTS REGISTRATION    /',      #MENU TITLE
         'back': '\033[1;97mRETURNING TO MENU',    # RETURN MESSAGE
         'add': '\033[1;97mADD STUDENTS       /',     #ADD STUDENTS TITLE
             'sub_add': '\033[1;97mADD STUDENT',  #ADD STUDENTS SUB TITLE
             'grade': 'Grade: ',
         'edit': '\033[1;97mEDIT STUDENTS    /',     #EDIT STUDENTS TITLE
+            'sub_edit': '\033[1;97mEDIT STUDENT            |',
         'remove_student': '\033[1;91mREMOVE\033[1;97m STUDENT  ',    #REMOVE STUDENT TITLE
-            'select_student': ' | SELECT A STUDENT | ',
+            'select_student': ' | SELECT A STUDENT | ', #SELECT STUDENT
+            'selected': '        \033[1;94mSTUDENT SELECTED\033[m\033[1;97m:', #SELECTED
         'remove_again': 'Want to remove another student?: ', #QUESTION (REMOVE)
         'list': 'LIST STUDENTS  /',        #LIST STUDENTS TITLE
         'exit': '\033[1;91mEXIT\033[1;97m     /',     #EXIT TITLE
@@ -181,9 +188,9 @@ def edit_student():
         print()
         print('\033[1;97m              MENU EDITAR')
         print('┌────────────────────────────────────┐')
-        print('|           [1] ACESSAR MENU         |')
-        print('|           [2] REMOVER ALUNO        |')
-        print('|           [3] SAIR                 |')
+        print(f'|           [1] {t['access_menu']}')
+        print(f'|           [2] {t['remove_student']}')
+        print(f'|           [3] {t['exit']}')
         print('└────────────────────────────────────┘')
         print()
         choice = input('                 > ')
@@ -203,13 +210,13 @@ def edit_student():
 
                 while True:
                     try:
-                        print(' | SELECIONE O ALUNO | '.center(40))
+                        print(f'{t['select_student']}'.center(40))
                         print()
                         new_student = int(input('                 > '))
                         print()
-                        print(f'        \033[1;94mstudent SELECIONADO\033[m\033[1;97m: {group[new_student-1] [0]}')
+                        print(f'        {t['selected']} {group[new_student-1] [0]}')
                         print()
-                        name = (input('        Nome do estudante: ')).title().strip()
+                        name = (input(f'               {t['name']}: ')).title().strip()
                         g1 = float(input('        1ª nota: '))
                         g2 = float(input('        2ª nota: '))
                         g3 = float(input('        3ª nota: '))
