@@ -1,6 +1,19 @@
 from time import sleep
+import json
 
-group = []
+def save_data(data):
+    with open('group.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+def load_data():
+    try:
+        with open('group.json', 'r') as file:
+            return json.load(file)
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        return []
+
+
+group = load_data()
 
 def erro_num(msg):
     print()
@@ -128,6 +141,8 @@ def add_student():
                 student.append(grade)
 
             group.append(student.copy())
+            save_data(group)
+
             student.clear()
 
             print()
@@ -149,6 +164,14 @@ def add_student():
 
 
 def remover():
+
+    if not group:
+        print()
+        print(f'{t['no_student']}'.center(40))
+        print()
+        timer(0.5)
+        return
+
     print()
     print('┌────────────────────────────────────┐')
     print(f'           {t['remove_student']}')
@@ -168,6 +191,7 @@ def remover():
 
             if 0 <= remove < len(group):
                 group.pop(remove)
+                save_data(group)
                 print()
                 print(f'{t['success_remove']}'.center(55))
                 print()
@@ -179,7 +203,7 @@ def remover():
                             return
                         elif again in 'YS':
                             print()
-                            timer(0.8)
+                            timer(0.2)
                             break
                         else:
                             erro_num(f'{t['invalid_opt']}')
@@ -272,7 +296,8 @@ def edit_student():
 
             elif choice == '3':
                 print()
-                timer(0.8)
+                timer(0.4)
+                return
 
             else:
                 print()
