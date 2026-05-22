@@ -1,4 +1,4 @@
-# Students Management
+# Student Management System
 
 A student management application for handling student names and grades.
 
